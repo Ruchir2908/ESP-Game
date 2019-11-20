@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1028869874930",
+    "firebase_url": "https://esp-game.firebaseio.com",
+    "project_id": "esp-game",
+    "storage_bucket": "esp-game.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028869874930:android:f003466f6da5a86fe3dc6b",
+        "android_client_info": {
+          "package_name": "com.example.esp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028869874930-gtna3ml3famha5j39f0723klc07dlgd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwGvenNxOBFo9S6Dpp1nbQnhz-TWkGXC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028869874930-gtna3ml3famha5j39f0723klc07dlgd0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

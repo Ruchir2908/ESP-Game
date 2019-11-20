@@ -29,18 +29,18 @@ public class TaskFragment extends Fragment {
 
         ImageView primaryImageView, secondaryImageView;
         primaryImageView = view.findViewById(R.id.primaryImageView);
-        secondaryImageView = view.findViewById(R.id.secondaryImageView);
+//        secondaryImageView = view.findViewById(R.id.secondaryImageView);
 
         Random random = new Random();
         primaryImageView.setImageResource(MainActivity.primaryImages.get((random.nextInt(10)+1)));
 
-        secondaryImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(getActivity().getApplicationContext(), "RG", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        secondaryImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Toast.makeText(getActivity().getApplicationContext(), "RG", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         return view;
     }

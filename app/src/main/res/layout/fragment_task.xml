@@ -7,15 +7,44 @@
     tools:context=".TaskFragment">
 
     <ImageView
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/primaryImageView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:src="@color/colorAccent"/>
 
-    <ImageView
-        android:id="@+id/secondaryImageView"
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/secondaryImages"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@color/colorPrimaryDark"/>
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/sec1ImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@color/colorAccent"/>
+
+        <ImageView
+            android:id="@+id/sec2ImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@color/colorPrimaryDark"/>
+
+        <ImageView
+            android:id="@+id/sec3ImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"/>
 
 </LinearLayout>
