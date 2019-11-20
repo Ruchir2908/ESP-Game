@@ -32,7 +32,7 @@ public class TaskFragment extends Fragment {
 //        secondaryImageView = view.findViewById(R.id.secondaryImageView);
 
         Random random = new Random();
-        primaryImageView.setImageResource(MainActivity.primaryImages.get((random.nextInt(10)+1)));
+        primaryImageView.setImageResource(MainActivity.primaryImages.get((random.nextInt(10))));
 
 //        secondaryImageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
