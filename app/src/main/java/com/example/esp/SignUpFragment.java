@@ -70,7 +70,7 @@ public class SignUpFragment extends Fragment {
                     final String player = usernameEditText.getText().toString();
                     players.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isComplete()) {
                                 boolean flag = false;
                                 if (task.getResult() != null) {
