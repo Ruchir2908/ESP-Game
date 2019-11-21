@@ -25,9 +25,9 @@ allprojects {
         google()
         jcenter()
 //        maven()
-        maven {
-            url 'https://maven.google.com/'
-        }
+//        maven {
+//            url 'https://maven.google.com/'
+//        }
     }
 }
 

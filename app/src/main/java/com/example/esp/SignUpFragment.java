@@ -1,10 +1,7 @@
 package com.example.esp;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +9,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+
 public class SignUpFragment extends Fragment {
+
+    FirebaseFirestore root = FirebaseFirestore.getInstance();
+    CollectionReference players = root.collection("Players");
+
+    EditText usernameEditText;
+    Button loginButton;
 
     public SignUpFragment() {
 
@@ -23,19 +40,60 @@ public class SignUpFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public void newPlayer(String playerID){
+        players.add(new Player(usernameEditText.getText().toString(), 0, new HashMap<String, Player>()))
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "ERROR", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
-        final EditText usernameEditText = view.findViewById(R.id.usernameEditText);
-        final EditText passwordEditText = view.findViewById(R.id.passwordEditText);
-        Button signupButton = view.findViewById(R.id.signupButton);
+        usernameEditText = view.findViewById(R.id.usernameEditText);
+        loginButton = view.findViewById(R.id.loginButton);
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
-//                Toast.makeText(getActivity().getApplicationContext(), usernameEditText.getText().toString() + " " + passwordEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+                if(!usernameEditText.getText().toString().isEmpty()){
+                    final String playerId = usernameEditText.getText().toString();
+                    players.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                            if (task.isComplete()) {
+                                boolean flag = false;
+                                if (task.getResult() != null) {
+                                    for (QueryDocumentSnapshot snapshot : task.getResult()) {
+                                        if (snapshot.getData().get("player").equals(playerId)) {
+//                                            startTasksActivity(userId, snapshot.getId());
+                                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
+                                            flag = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!flag) newPlayer(playerId);
+                                }
+                                else newPlayer(playerId);
+                            } else {
+                                Toast.makeText(getContext(), "ERROR", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+
+
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
             }
         });
 
