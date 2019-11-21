@@ -67,7 +67,7 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(!usernameEditText.getText().toString().isEmpty()){
-                    final String playerId = usernameEditText.getText().toString();
+                    final String player = usernameEditText.getText().toString();
                     players.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
@@ -75,25 +75,27 @@ public class SignUpFragment extends Fragment {
                                 boolean flag = false;
                                 if (task.getResult() != null) {
                                     for (QueryDocumentSnapshot snapshot : task.getResult()) {
-                                        if (snapshot.getData().get("player").equals(playerId)) {
+                                        if (snapshot.getData().get("player").equals(player)) {
 //                                            startTasksActivity(userId, snapshot.getId());
-                                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("player", player);
+                                            bundle.putString("id",snapshot.getId());
+                                            HomeFragment homeFragment = new HomeFragment();
+                                            homeFragment.setArguments(bundle);
+                                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).addToBackStack(null).commit();
                                             flag = true;
                                             break;
                                         }
                                     }
-                                    if (!flag) newPlayer(playerId);
+                                    if (!flag) newPlayer(player);
                                 }
-                                else newPlayer(playerId);
+                                else newPlayer(player);
                             } else {
                                 Toast.makeText(getContext(), "ERROR", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
                 }
-
-
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
             }
         });
 
