@@ -37,14 +37,6 @@
             android:layout_height="100dp"
             android:src="@color/colorPrimaryDark"/>
 
-        <ImageView
-            android:id="@+id/sec3ImageView"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@color/colorPrimary"/>
-
     </LinearLayout>
 
     <Button

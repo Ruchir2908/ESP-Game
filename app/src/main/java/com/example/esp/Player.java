@@ -5,14 +5,14 @@ import java.util.HashMap;
 public class Player {
 
     String playerID;
-    int score;
+    long score;
     HashMap<String,Player> opponents;
 
     public Player() {
 
     }
 
-    public Player(String playerID, int score, HashMap<String, Player> opponents) {
+    public Player(String playerID, long score, HashMap<String, Player> opponents) {
         this.playerID = playerID;
         this.score = score;
         this.opponents = opponents;
@@ -26,11 +26,11 @@ public class Player {
         this.playerID = playerID;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         this.score = score;
     }
 

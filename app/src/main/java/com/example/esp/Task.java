@@ -1,15 +1,45 @@
 package com.example.esp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Task {
 
+    public Task(boolean complete, List<Integer> ques, String firstPlayer, String secondPlayer, String docId, String firstPlayerResponse, String secondPlayerResponse) {
+        this.complete = complete;
+        this.ques = ques;
+        this.firstPlayer = firstPlayer;
+        this.secondPlayer = secondPlayer;
+        this.docId = docId;
+        this.firstPlayerResponse = firstPlayerResponse;
+        this.secondPlayerResponse = secondPlayerResponse;
+    }
+
     boolean complete;
-    ArrayList<Integer> ques;
+    List<Integer> ques;
     String firstPlayer;
     String secondPlayer;
     // check doc id???
     String docId;
+    String firstPlayerResponse;
+
+    public String getFirstPlayerResponse() {
+        return firstPlayerResponse;
+    }
+
+    public void setFirstPlayerResponse(String firstPlayerResponse) {
+        this.firstPlayerResponse = firstPlayerResponse;
+    }
+
+    public String getSecondPlayerResponse() {
+        return secondPlayerResponse;
+    }
+
+    public void setSecondPlayerResponse(String secondPlayerResponse) {
+        this.secondPlayerResponse = secondPlayerResponse;
+    }
+
+    String secondPlayerResponse;
 
     public boolean isComplete() {
         return complete;
@@ -19,7 +49,7 @@ public class Task {
         this.complete = complete;
     }
 
-    public ArrayList<Integer> getQues() {
+    public List<Integer> getQues() {
         return ques;
     }
 
@@ -51,11 +81,5 @@ public class Task {
         this.docId = docId;
     }
 
-    public Task(boolean complete, ArrayList<Integer> ques, String firstPlayer, String secondPlayer, String docId) {
-        this.complete = complete;
-        this.ques = ques;
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
-        this.docId = docId;
-    }
+
 }

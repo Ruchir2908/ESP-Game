@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+
 import java.util.HashMap;
 
 public class SignUpFragment extends Fragment {
@@ -31,6 +32,8 @@ public class SignUpFragment extends Fragment {
     EditText usernameEditText;
     Button loginButton;
 
+    String currentPlayer;
+
     public SignUpFragment() {
 
     }
@@ -40,12 +43,18 @@ public class SignUpFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    public void newPlayer(String playerID){
-        players.add(new Player(usernameEditText.getText().toString(), 0, new HashMap<String, Player>()))
+    public void newPlayer(final String playerID){
+        players.add(new Player(currentPlayer, 0, new HashMap<String, Player>()))
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("player", currentPlayer);
+                        bundle.putString("id",playerID);
+                        HomeFragment homeFragment = new HomeFragment();
+                        homeFragment.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).addToBackStack(null).commit();
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -67,34 +76,42 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(!usernameEditText.getText().toString().isEmpty()){
-                    final String player = usernameEditText.getText().toString();
+                    currentPlayer = usernameEditText.getText().toString();
                     players.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
                             if (task.isComplete()) {
                                 boolean flag = false;
                                 if (task.getResult() != null) {
                                     for (QueryDocumentSnapshot snapshot : task.getResult()) {
-                                        if (snapshot.getData().get("player").equals(player)) {
+                                        if (snapshot!=null && snapshot.getData().get("playerID").equals(currentPlayer)) {
 //                                            startTasksActivity(userId, snapshot.getId());
                                             Bundle bundle = new Bundle();
-                                            bundle.putString("player", player);
+                                            bundle.putString("player", currentPlayer);
                                             bundle.putString("id",snapshot.getId());
                                             HomeFragment homeFragment = new HomeFragment();
                                             homeFragment.setArguments(bundle);
                                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).addToBackStack(null).commit();
                                             flag = true;
                                             break;
+                                        }else{
+                                            Toast.makeText(getContext(), "erororor", Toast.LENGTH_SHORT).show();
                                         }
                                     }
-                                    if (!flag) newPlayer(player);
+                                    if (!flag){
+                                        newPlayer(currentPlayer);
+                                    }
                                 }
-                                else newPlayer(player);
+                                else{
+                                    newPlayer(currentPlayer);
+                                }
                             } else {
                                 Toast.makeText(getContext(), "ERROR", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
+                }else{
+                    Toast.makeText(getContext(), "ENTER USERNAME", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -13,6 +13,15 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Integer> primaryImages;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if(count==3){
+
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -29,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         primaryImages.add(R.drawable.image8);
         primaryImages.add(R.drawable.image9);
         primaryImages.add(R.drawable.image10);
+
+
+
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new SignUpFragment()).addToBackStack(null).commit();
 

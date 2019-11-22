@@ -39,8 +39,7 @@ public class Primary {
     String question;
     Secondary options;
 
-    public Primary(Integer[] answers, boolean isCompleted, String question, Secondary options) {
-        this.answers = answers;
+    public Primary(boolean isCompleted, String question, Secondary options) {
         this.isCompleted = isCompleted;
         this.question = question;
         this.options = options;
