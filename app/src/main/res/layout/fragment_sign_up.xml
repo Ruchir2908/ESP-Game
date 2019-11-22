@@ -39,6 +39,16 @@
             android:textColor="@android:color/white"
             android:text="START GAME"/>
 
+        <Button
+            android:id="@+id/scoreButton"
+            android:text="SCORE"
+            android:layout_marginLeft="127dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:layout_below="@id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
 </LinearLayout>

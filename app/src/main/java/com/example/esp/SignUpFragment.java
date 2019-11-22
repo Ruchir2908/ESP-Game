@@ -30,7 +30,7 @@ public class SignUpFragment extends Fragment {
     CollectionReference players = root.collection("Players");
 
     EditText usernameEditText;
-    Button loginButton;
+    Button loginButton, scoreButton;
 
     String currentPlayer;
 
@@ -71,6 +71,35 @@ public class SignUpFragment extends Fragment {
 
         usernameEditText = view.findViewById(R.id.usernameEditText);
         loginButton = view.findViewById(R.id.loginButton);
+        scoreButton = view.findViewById(R.id.scoreButton);
+
+        scoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!usernameEditText.getText().toString().isEmpty()) {
+                    currentPlayer = usernameEditText.getText().toString();
+                    players.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                            if (task.isComplete()) {
+                                boolean flag = false;
+                                if (task.getResult() != null) {
+                                    for (QueryDocumentSnapshot snapshot : task.getResult()) {
+                                        if (snapshot != null && snapshot.getData().get("playerID").equals(currentPlayer)) {
+                                            Toast.makeText(getContext(), "SCORE: " + snapshot.getData().get("score"), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getContext(), "erororor", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            } else {
+                                Toast.makeText(getContext(), "eroorr", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
