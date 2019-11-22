@@ -1,0 +1,15 @@
+The user creates an account using an username and the same username is used to maintain all his tasks list in the firebase document.
+
+Currently two users with same name cannot exist.
+
+A user will be paired with any random user who has his name included in the database.
+
+The players are unaware of their opponent.
+
+Currently the correct secondary image correponding to the primary image is always the first image which can be randomized.
+
+Any player can create n number of tasks an play them in any random order.
+
+The score is updated only when both the opponents have completed the same tasks.
+
+The opponents get the exact same tasks to achieve concensus.
