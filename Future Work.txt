@@ -1,0 +1,10 @@
+Given plenty of time I can add a password field which can help in handling multiple users with same username.
+
+The individual item in the recycler view can be modified to dislplay small images of the primary questions.
+
+There can be a personalized dashboard showing my current unsolved tasks, ongoing task(my opponent has yet not solved the task) and completed tasks - Taking inspiration from SquadRun App :)
+
+The UI can be improved with the help of various libraries.
+
+The tasks can be used to show more than 2 options and these options varied for each image.
+
